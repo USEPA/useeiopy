@@ -1,0 +1,1 @@
+git+git://github.com/USEPA/IO-Model-Builder.git@v1.2#egg=iomb
