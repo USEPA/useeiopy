@@ -1,21 +1,21 @@
 """
 A wrapper for the IO-Model-Builder for use with USEEIO family models
 """
-
-import useeiopy.AssembleModel as AssembleModel
-import useeiopy.CalculateModel as CalculateModel
+import os
+import useeiopy.build as build
+import useeiopy.calculate as calculate
 import useeiopy.ValidateModel as ValidateModel
 import useeiopy.check as check
 from useeiopy.common import modelbuildpath, log
 
-def assemble(inputmodelname):
+def build_EEIO_model(inputmodelname):
     """Assembles a USEEIO model as an iomb Model instance
     Determines status of current builds as a case, finds or create missing files to proeeed to the next step
     :param inputmodelname: full model name, e.g. 'USEEIOv1.1'
     :return: an useeiopy Model instance
     """
     modelname = inputmodelname
-    modelpath = modelbuildpath + modelname + '/'
+    modelpath = modelbuildpath + '/' + modelname + '/'
 
     #status code
     #0  = all files present .. proceed with assembly
@@ -24,17 +24,24 @@ def assemble(inputmodelname):
 
     if case == 0:
         log.info("Assembling model...")
-        model = AssembleModel.make(modelname, modelpath)
+        model = build.make(modelname, modelpath)
         return(model)
 
 def validate(model):
     ValidateModel.validate(model)
 
-def calculate(model,year=2007,location='US',demandtype='Consumption',perspective='DIRECT'):
-    CalculateModel.calculate(model,
+def calculate_EEIO_model(model,year=2007,location='US',demandtype='Consumption',perspective='DIRECT'):
+    result = calculate.calculate_EEIO_model(model,
                              year,
                              location,
                              demandtype,
                              perspective)
-    log.info("Wrote results files to model's results folder.")
+    return result
 
+def write_EEIO_result(result):
+    resultsfolder = result.path + "results/"
+    if os.path.exists(resultsfolder) is False:
+        os.mkdir(resultsfolder)
+    result.LCI.to_csv(resultsfolder+result.modelname+"_"+ str(result.year)+"_"+result.location+"_"+result.demandtype+"_"+result.perspective+"_"+"LCI.csv")
+    result.LCIA.to_csv(resultsfolder+result.modelname+"_"+ str(result.year)+"_"+result.location+"_"+result.demandtype+"_"+result.perspective+"_"+"LCIA.csv")
+    log.info("Wrote results files to " + resultsfolder)
