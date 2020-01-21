@@ -1,5 +1,7 @@
 import os
 import logging
+import appdirs
+
 log = logging.getLogger(__name__)
 log.setLevel(logging.INFO)
 
@@ -14,4 +16,5 @@ requiredModelFileEndings = ['_DRC.csv',
 try: modulepath = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/') + '/'
 except NameError: modulepath = 'useeiopy/'
 
-modelbuildpath = modulepath + '/Model Builds/'
+modelbuildpath = appdirs.user_data_dir("Model_Builds","USEEIO")
+
