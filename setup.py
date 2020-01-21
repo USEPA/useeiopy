@@ -11,7 +11,7 @@ setup(
     author_email='ingwersen.wesley@epa.gov',
     description='Assembles, calculates and writes out USEEIO environmentally-extended'
                 'input-output models using the IO-Model-Builder.',
-    install_requires=['iomb>=1.2'],
+    install_requires=['appdirs>=1.3'],
     long_description = open('README.md').read(),
     classifiers = [
         "Development Status :: Alpha",
