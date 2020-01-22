@@ -20,6 +20,18 @@ class Model(object):
         self.name = modelname
         self.path = modelpath
 
+    def add_matrices(self):
+        import iomb.matio as matio
+        import iomb.dqi as dqi
+        matrices = matio.Matrices(self.model,DQImatrices=False)
+        self.A = matrices.A
+        self.L = matrices.L
+        self.B = matrices.B
+        self.C = matrices.C
+        self.D = matrices.D
+        self.B_dqi = dqi.Matrix.from_sat_table(self.model)
+        return self
+
 def make(modelname, modelpath):
     """
     Builds a Model
