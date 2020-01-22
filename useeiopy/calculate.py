@@ -17,7 +17,8 @@ class Result(object):
                  location=None,
                  demandtype=None,
                  perspective=None,
-                 year=None):
+                 year=None,
+                 include_data_quality=False):
 
         self.modelname = model.name
         self.path = model.path
@@ -49,11 +50,20 @@ class Result(object):
             # Do nothing
             a=1
 
+        if include_data_quality:
+            import iomb.matio as matio
+            lci_contrib = self.LCI.transpose().values
+            dqi_contributions = model.B_dqi.aggregate_mmult(model.C.values,
+                                                            lci_contrib,
+                                                            left=False)
+            dqi_df = matio.dqi_matrix_to_df(dqi_contributions, model.C.index,
+                                              model.A.index)
+            dqi_df = dqi_df.transpose()
+            self.DQI = dqi_df
 
 
-
-
-def calculate_EEIO_model(model,year,location,demandtype,perspective):
+def calculate_EEIO_model(model, year, location,
+                         demandtype, perspective, include_data_quality):
     """
     Calculates an EEIO model result
     :param model: A useeopy Model object
@@ -79,13 +89,13 @@ def calculate_EEIO_model(model,year,location,demandtype,perspective):
         result['LCIA_d'] = r.lcia_contributions.transpose()
     else:
         log.error('Perspective must be DIRECT or FINAL.')
-    new_result = Result(result,model,location,demandtype,perspective,year)
+    new_result = Result(result,model,location,demandtype,perspective,year,include_data_quality)
 
 
     return new_result
 
 
-#def calculate_EEIO_model_dq(model,year,location,demandtype,perspective):
+
 
 
 
