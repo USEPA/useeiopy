@@ -45,9 +45,9 @@ def validate_EEIO_model(model):
     f.close()
 
 def calculate_EEIO_model(model,
-                         year=2007,
+                         year=2012,
                          location='US',
-                         demandtype='Consumption',
+                         demandtype='Production',
                          perspective='DIRECT',
                          include_data_quality=False):
     """
