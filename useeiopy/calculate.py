@@ -53,11 +53,11 @@ class Result(object):
         if include_data_quality:
             import iomb.matio as matio
             lci_contrib = self.LCI.transpose().values
-            dqi_contributions = model.B_dqi.aggregate_mmult(model.C.values,
+            dqi_contributions = model.matrices.B_dqi.aggregate_mmult(model.matrices.C.values,
                                                             lci_contrib,
                                                             left=False)
-            dqi_df = matio.dqi_matrix_to_df(dqi_contributions, model.C.index,
-                                              model.A.index)
+            dqi_df = matio.dqi_matrix_to_df(dqi_contributions, model.matrices.C.index,
+                                              model.matrices.A.index)
             dqi_df = dqi_df.transpose()
             self.DQI = dqi_df
 

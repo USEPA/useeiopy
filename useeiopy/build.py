@@ -22,16 +22,9 @@ class Model(object):
 
     def add_matrices(self):
         import iomb.matio as matio
-        matrices = matio.Matrices(self.model,DQImatrices=True)
-        self.A = matrices.A
-        self.L = matrices.L
-        self.B = matrices.B
-        self.C = matrices.C
-        self.D = matrices.D
-        self.B_dqi = matrices.B_dqi
-        self.D_dqi = matrices.D_dqi
-        self.U_dqi = matrices.U_dqi
+        self.matrices = matio.Matrices(self.model,DQImatrices=True)
         return self
+
 
 def make(modelname, modelpath):
     """
