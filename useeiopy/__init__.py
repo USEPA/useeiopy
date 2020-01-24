@@ -84,3 +84,31 @@ def write_EEIO_result(result):
     if result.DQI is not None:
         result.DQI.to_csv(result_pre + "DQI.csv")
     log.info("Wrote results files to " + resultsfolder)
+
+def write_EEIO_matrices(model):
+    """
+    Writes model matrices to csv in 'matrices' subfolder
+    :param model: a useeiopy model
+    :return: None
+    """
+    import iomb.matio as matio
+    m_folder = model.path + "matrices/"
+    if os.path.exists(m_folder) is False:
+        os.mkdir(m_folder)
+
+    model.matrices.export_to_csv(folder=m_folder, exportDQImatrices=True)
+
+"""
+def write_EEIO_for_API(model):
+
+    Writes model data for API to csv in 'data' subfolder
+    :param model: a useeiopy model
+    :return: None
+
+    import iomb.matio as matio
+    d_folder = model.path + "data/"
+    if os.path.exists(d_folder) is False:
+        os.mkdir(d_folder)
+
+    model.matrices.export_to_csv(folder=m_folder, exportDQImatrices=True)
+"""
