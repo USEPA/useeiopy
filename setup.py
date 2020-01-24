@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='useeiopy',
-    version='0.0.0.1',
+    version='0.0.1',
     packages=['useeiopy'],
     package_data={'useeiopy': ["data/*.*"]},
     url='https://github.com/USEPA/useeiopy',
@@ -11,7 +11,8 @@ setup(
     author_email='ingwersen.wesley@epa.gov',
     description='Assembles, calculates and writes out USEEIO environmentally-extended'
                 'input-output models using the IO-Model-Builder.',
-    install_requires=['appdirs>=1.3'],
+    install_requires=['iomb @ git+git://github.com/USEPA/IO-Model-Builder@v1.2.2#egg=iomb',
+                      'appdirs>=1.3'],
     long_description = open('README.md').read(),
     classifiers = [
         "Development Status :: Alpha",
@@ -21,6 +22,5 @@ setup(
         "Programming Language :: Python :: 3.x",
         "Topic :: Utilities",
     ],
-    #This does not automatically install these dependencies
-    dependency_links=['https://github.com/USEPA/IO-Model-Builder/archive/v1.2.zip']
+
 )
