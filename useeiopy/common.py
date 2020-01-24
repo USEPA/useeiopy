@@ -16,5 +16,6 @@ requiredModelFileEndings = ['_DRC.csv',
 try: modulepath = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/') + '/'
 except NameError: modulepath = 'useeiopy/'
 
-modelbuildpath = appdirs.user_data_dir("Model_Builds","USEEIO")
-
+modelbuildpath = appdirs.user_data_dir()
+modelbuildpath = modelbuildpath + '/USEEIO/Model_Builds'
+modelbuildpath = os.path.realpath(modelbuildpath)
