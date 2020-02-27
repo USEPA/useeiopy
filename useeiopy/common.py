@@ -7,7 +7,6 @@ log.setLevel(logging.INFO)
 
 
 requiredModelFileEndings = ['_DRC.csv',
-                            '_MarketShares.csv',
                             '_sat.csv',
                             '_LCIA.csv',
                             '_sector_meta_data.csv',
